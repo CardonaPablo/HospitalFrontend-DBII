@@ -1,6 +1,6 @@
 const doctores = []
 const consultas = []
-const doctorContainer = document.querySelector(".elements-container")
+const doctorContainer = document.getElementById("elements-container")
 const collectionName = "doctores"
 
 // Import the functions you need from the SDKs you need
@@ -66,18 +66,13 @@ const handleDataDocs = () => {
 };
 
 function crearDoctor(doctor,consultaID){
-    const row = document.createElement('div')
-    row.classList.add('row')
-    row.classList.add('row-cols-1')
-    row.classList.add('row-cols-md-3')
-    row.classList.add('g-4')
-    
+
     const divContainer = document.createElement('div')
     divContainer.classList.add('col')
 
     const cardContainer = document.createElement('div')
     cardContainer.classList.add('card-container')
-
+    
     const card = document.createElement('div')
     card.classList.add("card")
     card.classList.add("text-bg-secondary")
@@ -107,14 +102,33 @@ function crearDoctor(doctor,consultaID){
     cedula.style.padding = "0px"
     cedula.classList.add('card-text')
     cedula.classList.add('fs-4')
-    cedula.textContent = `Cedula : ${doctor.cedula}`
+    cedula.innerHTML = `<i class="fa-solid fa-certificate"></i> Cedula : ${doctor.cedula}`
 
     const especialidad = document.createElement('p')
     especialidad.style.margin = "0px"
     especialidad.style.padding = "0px"
     especialidad.classList.add('card-text')
     especialidad.classList.add('fs-4')
-    especialidad.textContent = `Especialidad: ${doctor.especialidad}`
+    especialidad.innerHTML = `<i class="fa-solid fa-stethoscope"></i> Especialidad : ${doctor.especialidad}`
+
+    const btnGroup = document.createElement('div')
+    btnGroup.classList.add('btn-group')
+    btnGroup.classList.add('p-1')
+    btnGroup.setAttribute('role','button')
+
+    const btnActualizar = document.createElement('button')
+    btnActualizar.classList.add('btn')
+    btnActualizar.classList.add('btn-warning')
+    btnActualizar.setAttribute('type','submit')
+    btnActualizar.setAttribute('data-bs-toggle','modal')
+    btnActualizar.setAttribute('data-bs-target','#editModal')
+    btnActualizar.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>'
+
+    const btnEliminar = document.createElement('button')
+    btnEliminar.classList.add('btn')
+    btnEliminar.classList.add('btn-danger')
+    btnEliminar.setAttribute('type','submit')
+    btnEliminar.innerHTML = '<i class="fa-solid fa-trash"></i>'
 
     const button = document.createElement("button");
     button.textContent = "Consultas";
@@ -125,6 +139,9 @@ function crearDoctor(doctor,consultaID){
         retrieveSecondCollectionData(consultaID);
     });
 
+    btnGroup.appendChild(btnActualizar)
+    btnGroup.appendChild(btnEliminar)
+
     cardListElement.appendChild(cedula)
     cardListElement.appendChild(especialidad)
 
@@ -133,12 +150,76 @@ function crearDoctor(doctor,consultaID){
 
     card.appendChild(cardTitle)
     card.appendChild(cardBody)
+    card.appendChild(btnGroup)
     card.appendChild(button);
 
     cardContainer.appendChild(card)
-    row.appendChild(cardContainer)
-    doctorContainer.appendChild(row)
+    doctorContainer.appendChild(crearModalEdit(doctor.nombre,doctor.cedula,doctor.especialidad))
+    doctorContainer.appendChild(cardContainer)
 }
+
+function crearModalEdit(nombre,cedula,especialidad){
+
+    // Modal
+
+    const divModalFade = document.createElement('div')
+    divModalFade.classList.add('modal')
+    divModalFade.classList.add('fade')
+    divModalFade.setAttribute('id', 'editModal')
+    divModalFade.setAttribute('tabindex', '-1')
+    divModalFade.setAttribute('aria-hidden', 'true')
+
+    const modalDialog = document.createElement('div')
+    modalDialog.classList.add('modal-dialog')
+
+    const modalContent = document.createElement('div')
+    modalContent.classList.add('modal-content')
+
+    const modalHeader = document.createElement('div')
+    modalHeader.classList.add('modal-header')
+
+    const modalTitle = document.createElement('h2')
+    modalTitle.classList.add('modal-title')
+    modalTitle.classList.add('fs-5')
+    modalTitle.innerHTML = nombre
+
+    const modalEditBtnClose = document.createElement('button')
+    modalEditBtnClose.classList.add('btn-close')
+    modalEditBtnClose.setAttribute('data-bs-dismiss','modal')
+    modalEditBtnClose.setAttribute('aria-label','Close')
+
+    const editModalBody = document.createElement('div')
+    editModalBody.classList.add('modal-body')
+    editModalBody.innerHTML = `<input class="form-control" value="${nombre}"><input class="form-control" value="${cedula}"><input class="form-control" value="${especialidad}">`
+
+    const editModalFooter = document.createElement('div')
+    editModalFooter.classList.add('modal-footer')
+
+    const btnCloseModalFooter = document.createElement('button')
+    btnCloseModalFooter.classList.add('btn')
+    btnCloseModalFooter.classList.add('btn-secondary')
+    btnCloseModalFooter.setAttribute('data-bs-dismiss','modal')
+    btnCloseModalFooter.innerText = "Cerrar"
+
+    const btnGuardarModalFooter = document.createElement('button')
+    btnGuardarModalFooter.classList.add('btn')
+    btnGuardarModalFooter.classList.add('btn-primary')
+    btnGuardarModalFooter.innerText = "Guardar Cambios"
+
+    editModalFooter.appendChild(btnCloseModalFooter)
+    editModalFooter.appendChild(btnGuardarModalFooter)
+    modalHeader.appendChild(modalTitle)
+    modalHeader.appendChild(modalEditBtnClose)
+    modalContent.appendChild(modalHeader)
+    modalContent.appendChild(editModalBody)
+    modalContent.appendChild(editModalFooter)
+    modalDialog.appendChild(modalContent)
+    divModalFade.appendChild(modalDialog)
+    
+    // End of modal
+    return  divModalFade
+}
+
 
 const retrieveSecondCollectionData = async (doctorId) => {
     const querySnapshot = await getDocs(
