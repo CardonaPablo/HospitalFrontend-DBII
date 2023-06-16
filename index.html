@@ -44,22 +44,22 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="doctor-form">
               <!-- Contenido del formulario para agregar doctor -->
               <!-- Cada div consiste básicamente en lo mismo. Un label y su input, cada uno registra un dato que luego se almacenará en un objeto -->
               <div class="col-auto mb-1">
                 <label for="txtNombresDoctor" class="form-label mx-auto text-center">Nombre Completo
-                  <input type="text" class="form-control" id="txtNombresDoctor" required>
+                  <input name="name" type="text" class="form-control" id="txtNombresDoctor" required>
                 </label>
               </div>
               <div class="input-group mb-1">
                 <label for="txtCedula" class="form-label mx-auto text-center">Cedula
-                  <input type="text" class="form-control" id="txtCedula" placeholder="AAA-XXX">
+                  <input name="cedula" type="text" class="form-control" id="txtCedula" placeholder="AAA-XXX">
                 </label>
               </div>
               <div class="input-group mb-1">
                 <label for="carrerasAlumno" class="form-label mx-auto text-center">Carrera
-                  <select class="form-select" name="carreras" id="carrerasAlumno">
+                  <select class="form-select" name="especialidad" id="carrerasAlumno">
                     <option selected>Especialidad</option>
                     <option value="Software">Ortopedia</option>
                     <option value="Industrial">Neurología</option>
@@ -76,7 +76,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
+            <button id="doctor-button" type="submit" class="btn btn-primary">Guardar cambios</button>
           </div>
         </div>
       </div>
@@ -92,23 +92,23 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-           <form id="formAlumno" class="row justify-content-center m-3" onsubmit="guardar()">
+           <form id="paciente-form" class="row justify-content-center m-3">
                 <!-- Cada div consiste basicamente de lo mismo. Un label y su input, cada uno registro un dato que despues sera almacenado en un objeto -->
                 <div class="col-auto mb-1">
                     <label for="txtIdAlumno" class="form-label  mx-auto text-center">Nombre Completo
-                        <input type="text" class="form-control" id="txtNombres" required>
+                        <input type="text" name="nombre" class="form-control" id="txtNombres" required>
                     </label>                        
                 </div>
 
                 <div class="input-group mb-1">
                     <label for="txtEmailAlumno" class="form-label mx-auto text-center">Peso
-                        <input type="text" class="form-control" id="txtEmailAlumno" placeholder="XX-KG">
+                        <input type="text" name="peso" class="form-control" id="txtEmailAlumno" placeholder="80.00">
                     </label>                        
                 </div>
 
                 <div class="input-group mb-1">
                     <label for="txtEmailAlumno" class="form-label mx-auto text-center">Edad
-                        <input type="text" class="form-control" id="txtEmailAlumno" placeholder="XX-AÑOS">
+                        <input type="text" name="edad" class="form-control" id="txtEmailAlumno" placeholder="XX-AÑOS">
                     </label>                        
                 </div>
                 <!-- Grupo de botones. Boton Guardar para guardar datos en la BD y un boton para regresar a la pagina principal -->
@@ -116,7 +116,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
+            <button type="button" id="paciente-button" class="btn btn-primary">Guardar cambios</button>
           </div>
         </div>
       </div>
@@ -131,37 +131,37 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="consulta-form">
               <!-- Contenido del formulario para agregar consulta -->
               <div class="input-group mb-1">
                 <label for="txtC" class="form-label mx-auto text-center">Nombre Paciente
-                    <input type="text" class="form-control" id="txt">
+                    <input name="paciente" type="text" class="form-control" id="txt">
                 </label>                        
               </div>
 
 
               <div class="input-group mb-1">
                 <label for="txtC" class="form-label mx-auto text-center">Diagnostico
-                    <input type="text" class="form-control" id="txt">
+                    <input name="diagnostico" type="text" class="form-control" id="txt">
                 </label>                        
               </div>
 
               <div class="input-group mb-1">
                 <label for="txtC" class="form-label mx-auto text-center">Fecha
-                    <input type="date" class="form-control" id="txt" placeholder="XX-AÑOS">
+                    <input name="fecha" type="date" class="form-control" id="txt" placeholder="XX-AÑOS">
                 </label>                        
               </div>
 
               <div class="input-group mb-1">
                 <label for="txtC" class="form-label mx-auto text-center">Tratamiento
-                    <input type="text" class="form-control" id="txt">
+                    <input name="tratamiento" type="text" class="form-control" id="txt">
                 </label>                        
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
+            <button type="button" id="consulta-button" class="btn btn-primary">Guardar cambios</button>
           </div>
         </div>
       </div>
@@ -176,7 +176,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="estudios-form">
               <!-- Contenido del formulario para agregar estudios -->
 
               <div class="input-group mb-1">
@@ -188,26 +188,26 @@
 
               <div class="input-group mb-1">
                 <label for="txtC" class="form-label mx-auto text-center">Descripcion
-                    <input type="text" class="form-control" id="txt">
+                    <input type="text" name="descripcion" class="form-control" id="txt">
                 </label>                        
               </div>
 
               <div class="input-group mb-1">
                 <label for="txtC" class="form-label mx-auto text-center">Fecha
-                    <input type="date" class="form-control" id="txt">
+                    <input type="date" name="fecha" class="form-control" id="txt">
                 </label>                        
               </div>
 
               <div class="input-group mb-1">
                 <label for="txtC" class="form-label mx-auto text-center">Tipo de Estudio
-                    <input type="text" class="form-control" id="txt">
+                    <input type="text" name="tipo" class="form-control" id="txt">
                 </label>                        
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar cambios</button>
+            <button type="button"  id="estudios-button" class="btn btn-primary">Guardar cambios</button>
           </div>
         </div>
       </div>
@@ -226,6 +226,8 @@
           });
     </script>
     <!-- FontAwesome -->
+    <script type="module" src="./create_buttons.js"></script>
     <script src="https://kit.fontawesome.com/09337f0c82.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 </html>

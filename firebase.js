@@ -5,7 +5,7 @@ const collectionName = "doctores"
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
     
@@ -40,7 +40,7 @@ const getData = async () => {
         });
         });
 
-        //console.log(doctor.id, " => ", doctor.data());
+        console.log(doctor.id, " => ", doctor.data());
     });
     // Call the function to handle the retrieved data
     handleDataDocs();
@@ -129,6 +129,10 @@ function crearDoctor(doctor,consultaID){
     btnEliminar.classList.add('btn-danger')
     btnEliminar.setAttribute('type','submit')
     btnEliminar.innerHTML = '<i class="fa-solid fa-trash"></i>'
+    btnEliminar.addEventListener('click',()=>{
+        deleteDoc(doc(db, collectionName, consultaID))
+        window.location.reload()
+    })
 
     const button = document.createElement("button");
     button.textContent = "Consultas";

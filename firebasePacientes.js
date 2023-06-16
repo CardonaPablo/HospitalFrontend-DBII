@@ -4,7 +4,8 @@ const collectionName = "pacientes"
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
 // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
     
@@ -125,6 +126,10 @@ function crearPaciente(pas,estudiosID){
     btnEliminar.classList.add('btn-danger')
     btnEliminar.setAttribute('type','submit')
     btnEliminar.innerHTML = '<i class="fa-solid fa-trash"></i>'
+    btnEliminar.addEventListener('click',()=>{
+        deleteDoc(doc(db, collectionName, estudiosID))
+        window.location.reload()
+    })
 
 
     const button = document.createElement("button");
@@ -226,6 +231,9 @@ function crearModalEdit(nombre,cedula,especialidad){
     btnCloseModalFooter.innerText = "Cerrar"
 
     const btnGuardarModalFooter = document.createElement('button')
+    btnGuardarModalFooter.addEventListener('click', function(){
+        console.log("Guardando cambios")
+    })
     btnGuardarModalFooter.classList.add('btn')
     btnGuardarModalFooter.classList.add('btn-primary')
     btnGuardarModalFooter.innerText = "Guardar Cambios"
